@@ -6,6 +6,9 @@ This project has the main purpose of downloading, unzipping and analysing the Pu
 
 The goal of the project is to create a file containing all PubMed namespaces and counting their cardinality.
 
+The database is downloaded from the following link:
+ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline
+
 ## Namespace
 A namespace is the composition of an author's last name with its forename initial (e.g. John Doe -> (Doe, J)).
 Creating a file containing every namespace and the relative cardinality has as major goal becoming a feature for an 
