@@ -1,5 +1,4 @@
 import os
-from bs4 import BeautifulSoup
 
 import definitions
 
@@ -20,24 +19,26 @@ def fill_namespaces_dict(namespaces, db_path):
             file_counter = file_counter + 1
 
             current_file = open(db_path + "/" + file_name, 'r')
-            file_content = current_file.read()
+
+            for line in current_file:
+                if "<Author" in line and "AuthorList" not in line:
+                    lastname_line = current_file.readline()
+                    forename_line = current_file.readline()
+
+                    if "LastName" in lastname_line and "ForeName" in forename_line:
+                        if len(lastname_line.split("<LastName>")) == 2 and len(forename_line.split("<ForeName>")) == 2:
+                            lastname = lastname_line.split("<LastName>")[1].split("</LastName>")[0]
+                            forename = forename_line.split("<ForeName>")[1].split("</ForeName>")[0]
+
+                            namespace = (lastname, forename[0])
+
+                            try:
+                                namespaces[namespace] = namespaces[namespace] + 1
+                            except KeyError:
+                                namespaces[namespace] = 1
             current_file.close()
+            del current_file
 
-            soup = BeautifulSoup(file_content, 'xml')
-
-            authors = soup.find_all('Author')
-
-            for author in authors:
-                if author.LastName and author.ForeName:
-                    lastname = author.LastName.string
-                    initial = author.ForeName.string[0]
-
-                    namespace = (lastname, initial)
-
-                    if namespace not in namespaces.keys():
-                        namespaces[namespace] = 1
-                    else:
-                        namespaces[namespace] = namespaces[namespace] + 1
     return namespaces
 
 
