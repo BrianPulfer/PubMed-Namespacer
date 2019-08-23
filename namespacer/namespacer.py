@@ -30,12 +30,13 @@ def fill_namespaces_dict(namespaces, db_path):
                             lastname = lastname_line.split("<LastName>")[1].split("</LastName>")[0]
                             forename = forename_line.split("<ForeName>")[1].split("</ForeName>")[0]
 
-                            namespace = (lastname, forename[0])
+                            if ";" not in lastname and ";" not in forename:
+                                namespace = (lastname, forename[0])
 
-                            try:
-                                namespaces[namespace] = namespaces[namespace] + 1
-                            except KeyError:
-                                namespaces[namespace] = 1
+                                try:
+                                    namespaces[namespace] = namespaces[namespace] + 1
+                                except KeyError:
+                                    namespaces[namespace] = 1
             current_file.close()
             del current_file
 
