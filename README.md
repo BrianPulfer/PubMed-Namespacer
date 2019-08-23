@@ -26,7 +26,7 @@ To see PubMed data download conditions, check out the following link:
 https://www.nlm.nih.gov/databases/download/terms_and_conditions.html
 
 ## System requirements
-MacOS or Linux operating system. Python3 or greater. Internet connection and 200GB of free space on disk 
+MacOS or Linux operating system. Python3 or greater. Internet connection and 300 GB of free space on disk 
 (if downloading database).
 
 ## Set-up
